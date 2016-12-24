@@ -9,7 +9,6 @@ class BookInfo(models.Model):
     isbn_no = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5,decimal_places=2)
     author = models.CharField(max_length=20)
-    owner = models.ForeignKey('auth.User')
 
 
     def __str__(self):
