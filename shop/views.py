@@ -41,6 +41,10 @@ class BookList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ListView(TemplateView):
+    template_name = ''
+
+
 class BookDetail(APIView):
     def get_object(self, pk):
         try:
