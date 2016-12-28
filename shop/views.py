@@ -7,16 +7,35 @@ from shop.models import BookInfo, Student, University
 from shop.serializers import BookSerializers, StudentSerializer, UniversitySerializer
 from rest_framework import viewsets
 from django.views.generic import TemplateView, RedirectView
+from django.views.generic.edit import FormView
+from .forms import ContactForm
+from django.shortcuts import render
 
 
 class HomeView(TemplateView):
     template_name = 'home.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        context['task'] = BookInfo.objects.get(pk=self.kwargs.get('std_id', None))
-        return context
 
+    def get(self, request, *args, **kwargs):
+
+        try:
+            book = BookInfo.objects.get(pk=5)
+        except BookInfo.DoesNotExist:
+            raise Http404("Bookinfo doesnot exist!")
+        context = {'var': "this is test var"}
+        return render(request, self.template_name, self.context)
+
+
+class ContactView(FormView):
+    template_name = 'contactform.html'
+    form_class = ContactForm
+
+
+'''
+    def form_invalid(self, form):
+        print(form)
+        return super(ContactView, self).form_valid(form)
+'''
 
 class HomeRedirectView(RedirectView):
 
